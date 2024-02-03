@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2059
 
 # Colors
 
@@ -33,17 +34,8 @@ install_packages() {
     pprint_info "Installing apt packages..."
 
     sudo apt-get update
-    
-#    set +x
-#
-#    pkgs=""
-#    while read pkg; do
-#        pkgs="$pkgs $pkg"
-#    done <"$pkg_file"
-#
-#    set -x
 
-    if sudo apt-get install -y $(grep -vE "^\s*#" $pkg_file | tr "\n" " "); then
+    if sudo apt-get install -y "$(grep -vE "^\s*#" $pkg_file | tr "\n" " ")"; then
         pprint_ok "Success"
     else
         pprint_err "Error! Unable to install packages"
