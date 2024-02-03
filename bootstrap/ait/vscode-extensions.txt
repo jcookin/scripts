@@ -1,0 +1,17 @@
+foxundermoon.shell-format
+ms-python.python
+ms-python.vscode-pylance
+esbenp.prettier-vscode
+eamodio.gitlens
+mhutchie.git-graph
+ms-vscode-remote.vscode-remote-extensionpack
+yzhang.markdown-all-in-one
+davidanson.vscode-markdownlint
+redhat.vscode-yaml
+golang.go
+mikestead.dotenv
+timonwong.shellcheck
+gruntfuggly.todo-tree
+ms-azuretools.vscode-docker
+pkief.material-icon-theme
+

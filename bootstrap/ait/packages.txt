@@ -1,0 +1,25 @@
+# one package per line, comments are ignored
+vim
+git
+btop
+wget
+gpg
+jq
+tree
+dos2unix
+sshfs
+restic
+zip
+unzip
+nmap
+dnsutils
+iftop
+iotop
+pciutils
+usbutils
+sysstat
+ethtool
+neofetch
+power-profiles-daemon
+#tld
+
