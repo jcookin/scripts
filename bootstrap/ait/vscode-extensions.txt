@@ -14,4 +14,5 @@ timonwong.shellcheck
 gruntfuggly.todo-tree
 ms-azuretools.vscode-docker
 pkief.material-icon-theme
+bbenoist.nix
 
