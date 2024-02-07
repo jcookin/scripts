@@ -11,6 +11,7 @@ set -x
 ## Kernel check
 
 # check if kernel version with known issues
+## https://community.frame.work/t/guide-linux-mint-on-laptop-13-with-amd-7040/37889
 if [ -f bad_kernels.txt ]; then 
     if grep -Fxq "$(uname -r)" bad_kernels.txt; then
         pprint_err "kernel version is '$(uname -r)' -- recommend upgrading due to prior issues with this kernel version"
