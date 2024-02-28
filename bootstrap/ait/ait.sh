@@ -138,4 +138,15 @@ else
     pprint_err "Error!"
 fi
 
+## Install steam
+pprint_info "Installing Steam..."
+
+wget -O steam.deb https://cdn.cloudflare.steamstatic.com/client/installer/steam.deb
+
+if sudo dpkg -i steam.deb; then
+    pprint_ok "Success!"
+else
+    pprint_err "Error, see logs"
+fi
+
 pprint_info "NOTICE: Recommend reboot"
