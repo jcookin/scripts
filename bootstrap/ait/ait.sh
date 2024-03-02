@@ -150,4 +150,16 @@ else
     pprint_err "Error, see logs"
 fi
 
-pprint_info "NOTICE: Recommend reboot"
+## Install minecraft
+pprint_info "Installing Minecraft..."
+
+wget -O minecraft.deb https://launcher.mojang.com/download/Minecraft.deb
+
+if sudo apt-get install libgdk-pixbuf2.0-0 && sudo dpkg -i minecraft.deb; then
+    rm minecraft.deb
+    pprint_ok "Success!"
+else
+    pprint_err "Error, see output logs"
+fi
+
+pprint_info ">>> NOTICE: Recommend reboot <<<"
