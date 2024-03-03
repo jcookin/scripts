@@ -162,4 +162,23 @@ else
     pprint_err "Error, see output logs"
 fi
 
+## Install Wine
+pprint_info "Installing wine..."
+
+if {
+    # Enable 32-bit arch
+    sudo dpkg --add-architecture i386
+    # Add repos
+    sudo mkdir -pm755 /etc/apt/keyrings
+    sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+    sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+    # update & install
+    sudo apt-get update
+    sudo apt install -y --install-recommends winehq-stable
+}; then
+    pprint_ok "Success!"
+else
+    pprint_err "Error, see output log"
+fi
+
 pprint_info ">>> NOTICE: Recommend reboot <<<"
