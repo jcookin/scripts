@@ -18,4 +18,6 @@ bbenoist.nix
 vscjava.vscode-java-pack
 vscjava.vscode-java-debug
 redhat.java
-
+vscjava.vscode-gradle
+mathiasfrohlich.kotlin
+fwcd.kotlin
