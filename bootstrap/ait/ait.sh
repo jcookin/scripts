@@ -181,4 +181,18 @@ else
     pprint_err "Error, see output log"
 fi
 
+## Install Android Studio
+pprint_info "Installing Android Studio..."
+
+if {
+    wget -O android-studio.tar.gz https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.2.1.23/android-studio-2023.2.1.23-linux.tar.gz
+    sudo tar -xzvf android-studio.tar.gz -C /opt
+    sudo ln -s /opt/android-studio/bin/studio.sh /usr/local/bin/android-studio
+    rm android-studio.tar.gz
+}; then
+    pprint_ok "Sucess!"
+else
+    pprint_err "Error installing, see output log"
+fi
+
 pprint_info ">>> NOTICE: Recommend reboot <<<"
