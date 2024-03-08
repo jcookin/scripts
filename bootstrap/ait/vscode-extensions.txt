@@ -15,4 +15,7 @@ gruntfuggly.todo-tree
 ms-azuretools.vscode-docker
 pkief.material-icon-theme
 bbenoist.nix
+vscjava.vscode-java-pack
+vscjava.vscode-java-debug
+redhat.java
 
