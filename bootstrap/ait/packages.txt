@@ -22,4 +22,5 @@ ethtool
 neofetch
 power-profiles-daemon
 #tld
+taskwarrior
 
