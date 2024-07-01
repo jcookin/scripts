@@ -1,0 +1,20 @@
+# one package per line, comments are ignored
+vim
+git
+btop
+wget
+tree
+restic
+zip
+unzip
+nmap
+dnsutils
+iftop
+iotop
+pciutils
+usbutils
+sysstat
+ethtool
+neofetch
+power-profiles-daemon
+qbittorrent
