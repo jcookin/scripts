@@ -5,11 +5,11 @@
 # Load pretty-printing config and shared functions
 # shellcheck source=../config.sh
 source ../config.sh
+MEDIA_DIR_ROOT="$HOME"  # May also be a disk /mnt location
 
 set -x
 
-
-## Package installs
+## Package installs ##
 
 # Update existing first
 
@@ -27,7 +27,6 @@ git config --global core.editor vim
 
 ## Install Docker
 pprint_info "Installing Docker..."
-
 
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -51,5 +50,10 @@ if sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-p
 else
     pprint_err "Error!"
 fi
+
+## Setup filesystem config
+mkdir /"$MEDIA_DIR_ROOT"/media
+mkdir /"$MEDIA_DIR_ROOT"/quarantine
+
 
 pprint_info ">>> NOTICE: Recommend reboot <<<"

@@ -18,3 +18,4 @@ ethtool
 neofetch
 power-profiles-daemon
 qbittorrent
+clamav
