@@ -51,9 +51,30 @@ else
     pprint_err "Error!"
 fi
 
+## setup ProtonVPN
+protonvpn_file=protonvpn-stable-release_1.0.3-3_all.deb
+
+if {
+	wget "https://repo.protonvpn.com/debian/dists/stable/main/binary-all/$protonvpn_file"
+	sudo dpkg -i ./$protonvpn_file && sudo apt update
+	sudo apt install -y proton-vpn-gnome-desktop
+	sudo apt update && sudo apt upgrade -y
+   }; then
+
+    pprint_ok "Success"
+    rm "$protonvpn_file"
+else
+    pprint_err "Issue installing protonvpn"
+fi
+
+
+
 ## Setup filesystem config
 mkdir /"$MEDIA_DIR_ROOT"/media
 mkdir /"$MEDIA_DIR_ROOT"/quarantine
+
+## Disk mount for shared media
+mkdir /mnt/media
 
 
 pprint_info ">>> NOTICE: Recommend reboot <<<"
