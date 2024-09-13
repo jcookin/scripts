@@ -8,6 +8,8 @@ source ../config.sh
 # shellcheck source=../install_scripts.sh
 source ../install_scripts.sh
 
+ossdir="$HOME/repos/oss"
+
 set -x
 
 ## Kernel check
@@ -27,7 +29,7 @@ fi
 
 ## PPA/APT Package installs
 
-# install_packages
+install_packages
 
 ######
 
@@ -36,6 +38,10 @@ fi
 git config --global user.name "jcookin"
 git config --global user.email ""
 git config --global core.editor vim
+
+## Configure folder structures for installs
+
+mkdir -p "$ossdir"
 
 ## Vim setup
 install_vundle
@@ -61,6 +67,10 @@ install_wine
 install_android_studio
 
 install_proton_vpn
+
+install_alt_btop_1_3_2 "$ossdir"   # pass the directory to clone oss repos for building
+install_rocm_smi "$ossdir"
+
 
 pprint_info ">>> NOTICE: Recommend reboot <<<"
 pprint_ok "DONE"

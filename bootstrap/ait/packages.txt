@@ -1,7 +1,7 @@
 # one package per line, comments are ignored
 vim
 git
-btop
+#btop
 wget
 gpg
 jq
@@ -21,6 +21,7 @@ sysstat
 ethtool
 neofetch
 power-profiles-daemon
-#tld
 taskwarrior
 tmux
+cmake
+build-essential

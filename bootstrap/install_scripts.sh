@@ -51,9 +51,9 @@ install_vscode() {
     sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
     rm -f packages.microsoft.gpg
 
-    sudo apt install apt-transport-https
+    sudo apt install -y apt-transport-https
     sudo apt update
-    if sudo apt install code; then
+    if sudo apt install -y code; then
         pprint_ok "Success"
         return 0
     else
@@ -284,18 +284,78 @@ install_android_studio() {
         return
     fi
 
-    if [ -v android-studio ]; then
-        pprint_ok "Android studio already installed, continuing"
-    elif {
-        wget -O android-studio.tar.gz https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.2.1.23/android-studio-2023.2.1.23-linux.tar.gz
-        sudo tar -xzvf android-studio.tar.gz -C /opt
-        sudo ln -s /opt/android-studio/bin/studio.sh /usr/local/bin/android-studio
+    if  wget -O android-studio.tar.gz https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.2.1.23/android-studio-2023.2.1.23-linux.tar.gz &&\
+        sudo tar -xzvf android-studio.tar.gz -C /opt &&\
+        sudo ln -s /opt/android-studio/bin/studio.sh /usr/local/bin/android-studio &&\
         rm android-studio.tar.gz
-    }; then
+    then
         pprint_ok "Sucess!"
         return 0
     else
         pprint_err "Error installing, see output log"
         return 1
     fi
+}
+
+install_alt_btop_1_3_2() {
+    # args: $1=open source repo directory to clone to and run builds from
+
+    # Install alternative btop version than available in apt repository for repo
+    # Example: Ubuntu 24.04 LTS repositories did not have v1.3.x which supports GPU monitoring
+
+    repo_name=btop
+    version=v1.3.2
+    ossdir=""
+    origdir=$(pwd)
+    
+    if [ $# -eq 0 ]; then
+        pprint_info "No oss build dir specified, using /tmp";
+    else
+        pprint_info "Using oss build dir $1" && ossdir=$1;
+    fi
+
+    cd "$ossdir" || { pprint_err "unable to cd anywhere"; return 2; };
+
+    git clone git@github.com:aristocratos/$repo_name.git
+    cd $repo_name || { pprint_err "'$repo_name' repository did not get cloned"; return 2; }
+    # Switch to desired version by tag
+    git switch --detach $version
+
+    # From btop docs: add the rocm_smi_lib as compilation dependency for GPU
+    git clone https://github.com/rocm/rocm_smi_lib.git --depth 1 -b rocm-5.6.x lib/rocm_smi_lib
+    # install build deps (if not installed)
+    sudo apt install -y coreutils sed git build-essential gcc-11 g++-11 lowdown
+    make > /dev/null
+    sudo make install
+
+    cd "$origdir" || return 2
+}
+
+install_rocm_smi() {
+    # Install ROCm SMI library for AMD GPU monitoring in btop primarily (must be installed for btop to use)
+    repo_name="rocm_smi_lib"
+    ossdir="/tmp"
+    origdir=$(pwd)
+
+    if [ $# -eq 0 ]; then
+        pprint_info "No oss build dir specified, using /tmp";
+    else
+        pprint_info "Using oss build dir $1" && ossdir=$1;
+    fi
+
+    cd "$ossdir" || { pprint_err "unable to cd anywhere"; return 2; };
+    
+    git clone git@github.com:ROCm/$repo_name.git
+    cd $repo_name || { pprint_err "'$repo_name' not cloned"; return 2; }
+    ## uncomment this line to build an older version
+    # git switch --detach rocm-6.2.x
+    mkdir -p build
+    cd build || { pprint_err "Error"; return 2; }
+
+    cmake ..
+    # shellcheck disable=SC2046
+    make -j $(nproc)
+    # sudo make install
+
+    cd "$origdir" || return 2
 }
