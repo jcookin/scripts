@@ -25,3 +25,5 @@ taskwarrior
 tmux
 cmake
 build-essential
+wireguard
+resolvconf

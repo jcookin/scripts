@@ -18,8 +18,6 @@ set -x
 
 install_packages
 
-#######
-
 ## Setup Git
 
 git config --global user.name "jcookin"
@@ -35,5 +33,8 @@ mkdir /"$MEDIA_DIR_ROOT"/media
 
 ## Disk mount for shared media
 mkdir /mnt/media
+
+## Clone Repos
+# TODO: setup and clone repo for media apps
 
 pprint_info ">>> NOTICE: Recommend reboot <<<"
