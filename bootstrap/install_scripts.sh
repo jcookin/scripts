@@ -379,3 +379,39 @@ install_talosctl() {
         return 1
     fi
 }
+
+install_kubectl() {
+    origdir=$(pwd)
+
+    trap 'rm kubectl kubectl.sha256; cd $origdir' RETURN
+
+    pprint_info "Installing kubectl..."
+
+    if is_installed "kubectl"; then
+        return 0
+    fi
+
+    cd /tmp || pprint_err "Unable to cd into /tmp"
+
+    if {
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+        if ! echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+        then
+            pprint_err "Unsafe/unverified binary, removing kubectl"
+            return 1
+        fi
+        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+        # setup 'k' alias for kubectl
+        echo 'alias k=kubectl' >>~/.bashrc
+        echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+    }
+    then
+        pprint_ok "Success!"
+        return 0
+    else
+        pprint_err "Error installing 'kubectl'"
+        return 1
+    fi
+
+}

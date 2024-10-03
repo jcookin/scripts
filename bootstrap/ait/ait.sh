@@ -72,6 +72,7 @@ install_alt_btop_1_3_2 "$ossdir"   # pass the directory to clone oss repos for b
 install_rocm_smi "$ossdir"
 
 install_talosctl
+install_kubectl
 
 
 pprint_info ">>> NOTICE: Recommend reboot <<<"
