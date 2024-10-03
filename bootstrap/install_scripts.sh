@@ -292,7 +292,7 @@ install_android_studio() {
         pprint_ok "Sucess!"
         return 0
     else
-        pprint_err "Error installing, see output log"
+        pprint_err "Error installing 'Android Studio', see output log"
         return 1
     fi
 }
@@ -337,6 +337,8 @@ install_rocm_smi() {
     ossdir="/tmp"
     origdir=$(pwd)
 
+    # TODO: check if cloned already, then "git pull" changes instead
+
     if [ $# -eq 0 ]; then
         pprint_info "No oss build dir specified, using /tmp";
     else
@@ -358,4 +360,22 @@ install_rocm_smi() {
     # sudo make install
 
     cd "$origdir" || return 2
+}
+
+install_talosctl() {
+
+    pprint_info "Installing talosctl..."
+
+    if is_installed "talosctl"; then
+        return
+    fi
+
+    if curl -sL https://talos.dev/install | sh
+    then
+        pprint_ok "Success!"
+        return 0
+    else
+        pprint_err "Error installing 'talosctl'"
+        return 1
+    fi
 }

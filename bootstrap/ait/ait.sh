@@ -71,6 +71,8 @@ install_proton_vpn
 install_alt_btop_1_3_2 "$ossdir"   # pass the directory to clone oss repos for building
 install_rocm_smi "$ossdir"
 
+install_talosctl
+
 
 pprint_info ">>> NOTICE: Recommend reboot <<<"
 pprint_ok "DONE"
