@@ -21,3 +21,5 @@ redhat.java
 vscjava.vscode-gradle
 mathiasfrohlich.kotlin
 fwcd.kotlin
+streetsidesoftware.code-spell-checker
+
