@@ -22,4 +22,5 @@ vscjava.vscode-gradle
 mathiasfrohlich.kotlin
 fwcd.kotlin
 streetsidesoftware.code-spell-checker
+tomoki1207.pdf
 
