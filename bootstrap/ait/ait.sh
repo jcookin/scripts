@@ -74,6 +74,7 @@ install_rocm_smi "$ossdir"
 install_talosctl
 install_kubectl
 
+install_charm_tools
 
 pprint_info ">>> NOTICE: Recommend reboot <<<"
 pprint_ok "DONE"

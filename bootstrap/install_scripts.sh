@@ -415,3 +415,32 @@ install_kubectl() {
     fi
 
 }
+
+install_charm_tools() {
+    origdir=$(pwd)
+
+    tools=(glow)
+
+    trap 'rm ; cd $origdir' RETURN
+
+    pprint_info "Installing charm CLI tools..."
+
+    if is_installed "glow"; then
+        return 0
+    fi
+
+    if {
+        sudo mkdir -p /etc/apt/keyrings
+        curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+        echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+        sudo apt update
+        sudo apt install "${tools[@]}"
+    }
+    then
+        pprint_ok "Success!"
+        return 0
+    else
+        pprint_err "Error installing 'some of the charm tools, see logs'"
+        return 1
+    fi
+}
